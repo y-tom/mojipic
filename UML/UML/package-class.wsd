@@ -1,0 +1,50 @@
+@startuml
+left to right direction
+
+package "controllers" {
+  class HomeController
+  class OAuthController
+  class PicturesController
+  class PropertiesController
+  class TwitterLoginController
+  class UsersController
+}
+
+package "domain" {
+  package "entity" {
+    class PictureId<<Value Object>>
+    class PictureProperty<<Entity>>
+    class TwitterId<<Value Object>>
+  }
+
+  package "repository" {
+    class PicturePropertyRepository<<Repository>>
+  }
+}
+
+package "infrastructure" {
+
+  package "actor" {
+    class ActorScheduler
+    class ConvertPictureActor
+  }
+
+  package "repository (infra)" {
+    class PicturePropertyRepositoryImpl<<Repository>>
+  }
+
+  package "twitter" {
+    class TwitterAuthenticator
+  }
+}
+
+PicturePropertyRepository <|-- PicturePropertyRepositoryImpl
+
+OAuthController o-- TwitterAuthenticator
+PicturesController o-- PicturePropertyRepository
+PropertiesController o-- PicturePropertyRepository
+UsersController o-- PicturePropertyRepository
+
+ConvertPictureActor o-- PicturePropertyRepository
+
+@enduml

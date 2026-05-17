@@ -1,0 +1,14 @@
+@startuml
+
+"Webブラウザ" -> "PlayFramework" : 画像を投稿
+"PlayFramework" -> "FileSystem" : オリジナル画像を保存
+"PlayFramework" -> "MySQL" : 画像のプロパティを保存する
+"PlayFramework" -> "Redis" : 変換タスクをキューに入れる
+"ConvertPictureActor\n(PlayFramework内)" -> "Redis" : 変換タスクがないか問い合わせる
+"Redis" -> "ConvertPictureActor\n(PlayFramework内)" : 変換タスクをキューから取り出す
+"ConvertPictureActor\n(PlayFramework内)" -> "MySQL" : 画像のプロパティを取得する
+"ConvertPictureActor\n(PlayFramework内)" -> "ImageMagick" : 画像を変換する
+"ConvertPictureActor\n(PlayFramework内)" -> "FileSystem" : 変換画像を保存する
+"ConvertPictureActor\n(PlayFramework内)" -> "MySQL" : 画像のプロパティを更新する
+
+@enduml

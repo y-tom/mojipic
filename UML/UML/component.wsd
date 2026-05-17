@@ -1,0 +1,33 @@
+@startuml
+left to right direction
+
+package "Play Framework" {
+  HTTP - [mojipic]
+}
+
+package "Docker" {
+  database "Redis" {
+    [tasks]
+  }
+
+  database "MySQL" {
+    [picture_properties]
+  }
+}
+
+database "FileSystem" {
+  [original]
+  [converted]
+}
+
+[ImageMagick]
+
+[mojipic] --> [original]
+[mojipic] --> [ImageMagick]
+[mojipic] --> [tasks]
+[mojipic] --> [converted]
+[mojipic] --> [picture_properties]
+[ImageMagick] --> [original]
+[ImageMagick] --> [converted]
+
+@enduml
