@@ -67538,11 +67538,47 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-// Materializedの設定
+// Dropzoneのドラッグ＆ドロップエリアの設定
+(dropzone__WEBPACK_IMPORTED_MODULE_2___default().options.filedropzone) = {
+  // サーバ側で受け取るファイルのパラメータ名
+  paramName: 'file',
+  // The name that will be used to transfer the file
+  // アップロードできる最大ファイルサイズ
+  maxFilesize: 2,
+  // MB
+  // Dropzone内に表示するデフォルトメッセージ
+  dictDefaultMessage: '',
+  // サムネイルの表示サイズ
+  thumbnailHeight: 200,
+  thumbnailWidth: 200,
+  // Dropzone初期化時の処理
+  init: function init() {
+    // ファイルが追加されたタイミングで実行
+    this.on('addedfile', function (file) {
+      // 表示用inputの値を、送信用hidden inputにコピーする
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()('#overlaytext').val(jquery__WEBPACK_IMPORTED_MODULE_0___default()('#overlaytext-shown').val());
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()('#overlaytextsize').val(jquery__WEBPACK_IMPORTED_MODULE_0___default()('#overlaytextsize-shown').val());
+    });
+  },
+  // ファイル受け入れ時の処理
+  accept: function accept(file, done) {
+    // ファイルを受け入れる
+    done();
+
+    // Dropzoneが自動生成する不要な表示要素を削除
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()('.dz-details').remove();
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()('.dz-progress').remove();
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()('.dz-error-message').remove();
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()('.dz-success-mark').remove();
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()('.dz-error-mark').remove();
+  }
+};
+
+// Materializeの設定
 jquery__WEBPACK_IMPORTED_MODULE_0___default()(function () {
-  // Materialized Menu
+  // サイドメニューを有効化
   jquery__WEBPACK_IMPORTED_MODULE_0___default()('.button-collapse').sideNav();
-}); // end of document ready
+});
 })();
 
 /******/ })()

@@ -12,6 +12,15 @@ libraryDependencies += "org.scalatestplus.play" %% "scalatestplus-play" % "5.1.0
 libraryDependencies += caffeine
 libraryDependencies += "javax.xml.bind" % "jaxb-api" % "2.3.1"
 libraryDependencies += "org.twitter4j" % "twitter4j-core" % "4.0.7"
+libraryDependencies += jdbc
+libraryDependencies += evolutions
+libraryDependencies += "org.scalikejdbc" %% "scalikejdbc"  % "4.3.5"
+libraryDependencies += "org.scalikejdbc" %% "scalikejdbc-config" % "4.3.5"
+libraryDependencies += "org.scalikejdbc" %% "scalikejdbc-play-dbapi-adapter" % "3.0.1-scalikejdbc-4.3"
+libraryDependencies += "mysql" % "mysql-connector-java" % "8.0.29"
+libraryDependencies += "net.debasishg" %% "redisclient" % "3.42"
+libraryDependencySchemes +=
+  "org.scala-lang.modules" %% "scala-parser-combinators" % VersionScheme.Always
 
 // Adds additional packages into Twirl
 //TwirlKeys.templateImports += "jp.ed.nnn.controllers._"

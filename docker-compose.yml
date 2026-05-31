@@ -8,3 +8,18 @@ services:
     volumes:
       - .:/node
       - /node/node_modules
+  mysql:
+    build:
+      context: "."
+      dockerfile: "mysql.Dockerfile"
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: mojipic
+  redis:
+    build:
+      context: "."
+      dockerfile: "redis.Dockerfile"
+    ports:
+      - "6379:6379"

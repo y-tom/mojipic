@@ -1,7 +1,7 @@
 // === login / callback / logout の画面操作を担当する係 ===
 package controllers
 
-import javax.inject.Inject
+import javax.inject.{Inject, Singleton}
 import infrastructure.twitter.{TwitterAuthenticator, TwitterException}
 import play.api.Configuration
 import play.api.cache.SyncCacheApi
@@ -9,6 +9,7 @@ import play.api.mvc.{Action, AnyContent, ControllerComponents}
 
 import scala.concurrent.duration._
 
+@Singleton
 class OAuthController @Inject()(
                                  cc: ControllerComponents,
                                  twitterAuthenticator: TwitterAuthenticator,
@@ -26,11 +27,9 @@ class OAuthController @Inject()(
       // Twitter認証後に戻ってくるURLを作る
       val callbackUrl =
         documentRootUrl + routes.OAuthController.oauthCallback(None).url
-
       // Twitterの認証URLを取得
       val authenticationUrl =
         twitterAuthenticator.startAuthentication(request.sessionId, callbackUrl)
-
       // Twitterの認証画面へリダイレクト
       Redirect(authenticationUrl)
     } catch {
@@ -48,14 +47,11 @@ class OAuthController @Inject()(
         verifierOpt.map(
           twitterAuthenticator.getAccessToken(request.sessionId, _)
         ) match {
-
           case Some(accessToken) =>
             // AccessToken を sessionId をキーにして cache に保存
             cache.set(request.sessionId, accessToken, 30.minutes)
-
             // ログイン後、トップページへリダイレクト
             Redirect(documentRootUrl + routes.HomeController.index().url)
-
           case None =>
             // verifier が取れなかった場合
             BadRequest(
